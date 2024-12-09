@@ -11,9 +11,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ProductCard extends ConsumerWidget {
   int index;
   ProductCard({
-    Key? key,
+    super.key,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,15 +23,17 @@ class ProductCard extends ConsumerWidget {
         padding: const EdgeInsets.all(4.0),
         child: Column(
           children: [
-            SizedBox(width: 250, height: 200, child: Image.asset(products[index].imgUrl)),
+            SizedBox(
+                width: 250,
+                height: 200,
+                child: Image.asset(
+                  products[index].imgUrl,
+                  fit: BoxFit.cover,
+                )),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HeadingText(
-                  text: products[index].title,
-                  color: AppColors.kBlackColor,
-                  overflow:TextOverflow.ellipsis
-                ),
+                HeadingText(text: products[index].title, color: AppColors.kBlackColor, overflow: TextOverflow.ellipsis),
                 BodyText(
                   text: products[index].shortDescription,
                   color: AppColors.kBlackColor,

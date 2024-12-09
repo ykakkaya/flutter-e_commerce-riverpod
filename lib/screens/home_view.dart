@@ -1,7 +1,9 @@
 import 'package:ecommerce/constants/app_colors.dart';
 import 'package:ecommerce/constants/app_sizes.dart';
 import 'package:ecommerce/constants/app_text.dart';
+import 'package:ecommerce/controller/bottom_navigation_index.dart';
 import 'package:ecommerce/controller/product_list_controller.dart';
+import 'package:ecommerce/screens/product_details.dart';
 import 'package:ecommerce/widgets/body_text.dart';
 import 'package:ecommerce/widgets/chip_widget.dart';
 import 'package:ecommerce/widgets/custom_appbar.dart';
@@ -15,14 +17,52 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class HomeView extends ConsumerWidget {
   const HomeView({super.key});
 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productNotifier = ref.watch(productNotifierProvider);
+    var currentIndex = ref.watch(bottomIndexProvider);
     return Scaffold(
       appBar: CustomAppbar(
         appText: AppText.homeAppbarText,
       ),
       drawer: const Drawer(),
+      bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: currentIndex,
+          backgroundColor: AppColors.kSecondaryColor,
+          selectedItemColor: AppColors.kWhiteColor,
+          unselectedItemColor: AppColors.kChipBackground,
+          onTap: (value) {
+            ref.read(bottomIndexProvider.notifier).update(
+              (state) {
+                return value;
+              },
+            );
+          },
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home_outlined,
+                ),
+                label: "Anasayfa"),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite_border_outlined,
+              ),
+              label: "Favoriler",
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.shopping_cart_outlined,
+                ),
+                label: "Sepetim"),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person_2_outlined,
+                ),
+                label: "Profil")
+          ]),
       body: Padding(
         padding: EdgeInsets.all(AppSizes.kPadding),
         child: SingleChildScrollView(
@@ -66,7 +106,7 @@ class HomeView extends ConsumerWidget {
                   BodyText(text: AppText.seeAll, color: AppColors.kPrimaryColor)
                 ],
               ),
-              //Products List
+              //Hot Products List
               SizedBox(
                 width: double.infinity,
                 height: 350,
@@ -95,6 +135,7 @@ class HomeView extends ConsumerWidget {
                   BodyText(text: AppText.seeAll, color: AppColors.kPrimaryColor)
                 ],
               ),
+              //Product List
               MasonryGridView.builder(
                   gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                   physics: const NeverScrollableScrollPhysics(),
@@ -103,8 +144,19 @@ class HomeView extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     return SizedBox(
                         height: 350,
-                        child: ProductCard(
-                          index: index,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return ProductDetails(
+                                  index: index,
+                                );
+                              },
+                            ));
+                          },
+                          child: ProductCard(
+                            index: index,
+                          ),
                         ));
                   })
             ],

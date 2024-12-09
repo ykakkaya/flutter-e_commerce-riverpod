@@ -1,6 +1,7 @@
 class AppText {
   AppText._();
   static String homeAppbarText = "ANASAYFA";
+  static String productDetailsAppbarText = "ÜRÜN DETAY SAYFASI";
   static String seeAll = "Tümünü Gör";
   static String chipText1 = "Tüm Kategoriler";
   static String chipText2 = "Notebook";
