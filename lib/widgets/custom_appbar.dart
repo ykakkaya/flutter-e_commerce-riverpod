@@ -18,14 +18,29 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         ),
         title: Text(
           appText,
-          style: TextStyle(
-              color: AppColors.kWhiteColor, fontSize: AppSizes.kHeadingSize),
+          style: TextStyle(color: AppColors.kWhiteColor, fontSize: AppSizes.kHeadingSize),
         ),
         centerTitle: true,
         backgroundColor: AppColors.kSecondaryColor,
         actions: [
-          IconButton(
-              onPressed: () {}, icon: const Icon(Icons.shopping_bag_outlined))
+          Stack(children: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_bag_outlined)),
+            const Positioned(
+                width: 20,
+                height: 20,
+                right: 25,
+                top: 5,
+                child: Badge(
+                  backgroundColor: Colors.black,
+                )),
+            const Positioned(
+                right: 30,
+                top: 5,
+                child: Text(
+                  "0",
+                  style: TextStyle(color: Colors.white),
+                ))
+          ])
         ]);
   }
 

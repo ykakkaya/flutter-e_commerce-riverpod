@@ -6,21 +6,13 @@ class HeadingText extends StatelessWidget {
   String text;
   Color color;
   TextOverflow? overflow;
-  HeadingText({
-    super.key,
-    required this.text,
-    required this.color,
-  });
+  HeadingText({super.key, required this.text, required this.color, this.overflow});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
-          fontSize: AppSizes.kHeadingSize,
-          fontWeight: FontWeight.bold,
-          color: color,
-          overflow: overflow),
+      style: TextStyle(fontSize: AppSizes.kHeadingSize, fontWeight: FontWeight.bold, color: color, overflow: overflow),
     );
   }
 }

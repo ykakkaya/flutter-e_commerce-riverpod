@@ -32,16 +32,13 @@ class HomeSlider extends StatelessWidget {
                   text: AppText.sliderHeading,
                   color: AppColors.kWhiteColor,
                 ),
-                SubHeadingText(
-                    text: AppText.sliderSubHeading,
-                    color: AppColors.kWhiteColor),
-                ElevatedButton(
-                    onPressed: () {}, child: Text(AppText.sliderButtonText))
+                SubHeadingText(text: AppText.sliderSubHeading, color: AppColors.kWhiteColor),
+                ElevatedButton(onPressed: () {}, child: Text(AppText.sliderButtonText))
               ],
             ),
           ),
           //Resim alanı
-          Image.asset(AppImages.landing),
+          Expanded(child: Image.asset(AppImages.landing)),
         ],
       ),
     );

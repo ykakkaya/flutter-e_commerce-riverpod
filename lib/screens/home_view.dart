@@ -1,6 +1,7 @@
 import 'package:ecommerce/constants/app_colors.dart';
 import 'package:ecommerce/constants/app_sizes.dart';
 import 'package:ecommerce/constants/app_text.dart';
+import 'package:ecommerce/controller/product_list_controller.dart';
 import 'package:ecommerce/widgets/body_text.dart';
 import 'package:ecommerce/widgets/chip_widget.dart';
 import 'package:ecommerce/widgets/custom_appbar.dart';
@@ -8,12 +9,15 @@ import 'package:ecommerce/widgets/home_slider.dart';
 import 'package:ecommerce/widgets/product_card.dart';
 import 'package:ecommerce/widgets/sub_heading_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends ConsumerWidget {
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final productNotifier = ref.watch(productNotifierProvider);
     return Scaffold(
       appBar: CustomAppbar(
         appText: AppText.homeAppbarText,
@@ -67,13 +71,17 @@ class HomeView extends StatelessWidget {
                 width: double.infinity,
                 height: 350,
                 child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: productNotifier.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child:
-                        SizedBox(width: 250, height: 350, child: ProductCard()),
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                        width: 250,
+                        height: 350,
+                        child: ProductCard(
+                          index: index,
+                        )),
                   ),
                 ),
               ),
@@ -87,6 +95,18 @@ class HomeView extends StatelessWidget {
                   BodyText(text: AppText.seeAll, color: AppColors.kPrimaryColor)
                 ],
               ),
+              MasonryGridView.builder(
+                  gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 10,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                        height: 350,
+                        child: ProductCard(
+                          index: index,
+                        ));
+                  })
             ],
           ),
         ),
