@@ -3,6 +3,8 @@ class AppSizes {
 
   static double kPadding = 8.0;
   static double kRadius = 20;
+  static double kButtonRadius = 10;
+  static double kButtonPadding = 15.0;
   static double kSliderPadding = 4.0;
   //Text Size
   static double kHeadingSize = 25;

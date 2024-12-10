@@ -17,4 +17,6 @@ class AppText {
   static String hotSales = "Çok Satanlar";
   static String salesProducts = "Tüm Ürünler";
 
+  static String addToCartButtonText="Sepete Ekle";
+
 }

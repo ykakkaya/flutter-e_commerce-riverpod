@@ -10,10 +10,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProductCard extends ConsumerWidget {
   int index;
-  ProductCard({
-    super.key,
-    required this.index,
-  });
+
+  ProductCard({super.key, required this.index});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,7 +31,10 @@ class ProductCard extends ConsumerWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HeadingText(text: products[index].title, color: AppColors.kBlackColor, overflow: TextOverflow.ellipsis),
+                HeadingText(
+                    text: products[index].title,
+                    color: AppColors.kBlackColor,
+                    overflow: TextOverflow.ellipsis),
                 BodyText(
                   text: products[index].shortDescription,
                   color: AppColors.kBlackColor,
@@ -47,11 +48,21 @@ class ProductCard extends ConsumerWidget {
                       color: AppColors.kBlackColor,
                     ),
                     IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.add_circle,
-                          size: AppSizes.kIconSize,
-                        ))
+                        onPressed: () {
+                          ref
+                              .read(productNotifierProvider.notifier)
+                              .isSelectedChange(products[index].pid, index);
+                          print(products[index].isSelected);
+                        },
+                        icon: products[index].isSelected
+                            ? Icon(
+                                Icons.check_circle,
+                                size: AppSizes.kIconSize,
+                              )
+                            : Icon(
+                                Icons.add_circle,
+                                size: AppSizes.kIconSize,
+                              ))
                   ],
                 )
               ],

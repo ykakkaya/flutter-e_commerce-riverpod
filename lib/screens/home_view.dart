@@ -17,7 +17,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 class HomeView extends ConsumerWidget {
   const HomeView({super.key});
 
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productNotifier = ref.watch(productNotifierProvider);
@@ -137,7 +136,9 @@ class HomeView extends ConsumerWidget {
               ),
               //Product List
               MasonryGridView.builder(
-                  gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                  gridDelegate:
+                      const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 10,
                   shrinkWrap: true,
@@ -155,7 +156,7 @@ class HomeView extends ConsumerWidget {
                             ));
                           },
                           child: ProductCard(
-                            index: index,
+                            index: index, 
                           ),
                         ));
                   })
