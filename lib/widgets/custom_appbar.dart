@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ecommerce/constants/app_sizes.dart';
 import 'package:ecommerce/controller/cart_list_controller.dart';
+import 'package:ecommerce/screens/cart_view.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/constants/app_colors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,12 @@ class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
         actions: [
           Stack(children: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CartView()));
+                },
                 icon: const Icon(Icons.shopping_bag_outlined)),
             const Positioned(
                 width: 20,

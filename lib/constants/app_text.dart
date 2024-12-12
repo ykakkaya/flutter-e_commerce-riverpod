@@ -2,6 +2,7 @@ class AppText {
   AppText._();
   static String homeAppbarText = "ANASAYFA";
   static String productDetailsAppbarText = "ÜRÜN DETAY SAYFASI";
+  static String cartViewAppbarText = "SEPETİM";
   static String seeAll = "Tümünü Gör";
   static String chipText1 = "Tüm Kategoriler";
   static String chipText2 = "Notebook";
@@ -18,5 +19,7 @@ class AppText {
   static String salesProducts = "Tüm Ürünler";
 
   static String addToCartButtonText="Sepete Ekle";
+   static String removeToCartButtonText="Sepetten Çıkar";
+
 
 }

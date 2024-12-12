@@ -1,6 +1,7 @@
 import 'package:ecommerce/constants/app_colors.dart';
 import 'package:ecommerce/constants/app_sizes.dart';
 import 'package:ecommerce/constants/app_text.dart';
+import 'package:ecommerce/controller/cart_list_controller.dart';
 import 'package:ecommerce/controller/product_list_controller.dart';
 import 'package:ecommerce/widgets/body_text.dart';
 import 'package:ecommerce/widgets/custom_appbar.dart';
@@ -39,54 +40,69 @@ class ProductDetails extends ConsumerWidget {
                   BodyText(
                       text: product[index].longDescription,
                       color: AppColors.kBlackColor),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      HeadingText(
-                          text:
-                              "Birim Fiyat : \$${product[index].price.toString()}",
-                          color: AppColors.kPrimaryColor),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              if (product[index].qty > 1) {
-                                ref
-                                    .read(productNotifierProvider.notifier)
-                                    .decreamentproductQty(product[index].pid);
-                              }
-                            },
-                            icon: const Icon(Icons.do_disturb_on_outlined),
-                          ),
-                          HeadingText(
-                              text: product[index].qty.toString(),
-                              color: AppColors.kPrimaryColor),
-                          IconButton(
-                              onPressed: () {
-                                ref
-                                    .read(productNotifierProvider.notifier)
-                                    .increamentproductQty(product[index].pid);
-                              },
-                              icon: const Icon(Icons.add_circle_outline))
-                        ],
-                      ),
-                    ],
+
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     HeadingText(
+                  //         text:
+                  //             "Birim Fiyat : \$${product[index].price.toString()}",
+                  //         color: AppColors.kPrimaryColor),
+                  //     Row(
+                  //       children: [
+                  //         IconButton(
+                  //           onPressed: () {
+                  //             if (product[index].qty > 1) {
+                  //               ref
+                  //                   .read(productNotifierProvider.notifier)
+                  //                   .decreamentproductQty(product[index].pid);
+                  //             }
+                  //           },
+                  //           icon: const Icon(Icons.do_disturb_on_outlined),
+                  //         ),
+                  //         HeadingText(
+                  //             text: product[index].qty.toString(),
+                  //             color: AppColors.kPrimaryColor),
+                  //         IconButton(
+                  //             onPressed: () {
+                  //               ref
+                  //                   .read(productNotifierProvider.notifier)
+                  //                   .increamentproductQty(product[index].pid);
+                  //             },
+                  //             icon: const Icon(Icons.add_circle_outline))
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  BodyText(
-                      text:
-                          "Toplam Fiyat : \$ ${product[index].price * product[index].qty}",
-                      color: AppColors.kBlackColor),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.kPrimaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   AppSizes.kButtonRadius))),
-                      onPressed: () {},
+                      onPressed: () {
+                        ref
+                            .read(productNotifierProvider.notifier)
+                            .isSelectedChange(product[index].pid, index);
+                        if (product[index].isSelected == true) {
+                          ref
+                              .read(cartProductNotifier.notifier)
+                              .removeCart(product[index].pid);
+                        } else {
+                          ref
+                              .read(cartProductNotifier.notifier)
+                              .addCart(product[index]);
+                        }
+                      },
                       child: Padding(
                         padding: EdgeInsets.all(AppSizes.kButtonPadding),
                         child: HeadingText(
-                            text: AppText.addToCartButtonText,
+                            text: product[index].isSelected
+                                ? AppText.removeToCartButtonText
+                                : AppText.addToCartButtonText,
                             color: AppColors.kWhiteColor),
                       ))
                 ],
