@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ecommerce/controller/cart_list_controller.dart';
 import 'package:ecommerce/controller/product_list_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,15 @@ class ProductCard extends ConsumerWidget {
                           ref
                               .read(productNotifierProvider.notifier)
                               .isSelectedChange(products[index].pid, index);
-                          print(products[index].isSelected);
+                          if (products[index].isSelected == true) {
+                            ref
+                                .read(cartProductNotifier.notifier)
+                                .removeCart(products[index].pid);
+                          } else {
+                            ref
+                                .read(cartProductNotifier.notifier)
+                                .addCart(products[index]);
+                          }
                         },
                         icon: products[index].isSelected
                             ? Icon(

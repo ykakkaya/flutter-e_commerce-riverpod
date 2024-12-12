@@ -46,6 +46,11 @@ class HomeView extends ConsumerWidget {
                 ),
                 label: "Anasayfa"),
             BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.location_on_outlined,
+                ),
+                label: "Konum"),
+            BottomNavigationBarItem(
               icon: Icon(
                 Icons.favorite_border_outlined,
               ),
@@ -156,7 +161,7 @@ class HomeView extends ConsumerWidget {
                             ));
                           },
                           child: ProductCard(
-                            index: index, 
+                            index: index,
                           ),
                         ));
                   })

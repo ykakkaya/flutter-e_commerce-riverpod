@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ecommerce/constants/app_sizes.dart';
+import 'package:ecommerce/controller/cart_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/constants/app_colors.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppbar extends ConsumerWidget implements PreferredSizeWidget {
   String appText;
   CustomAppbar({
     super.key,
@@ -11,34 +13,38 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cartItem = ref.watch(cartProductNotifier).length;
     return AppBar(
         iconTheme: const IconThemeData(
           color: Colors.white, // Drawer simgesi dahil tüm ikonları beyaz yapar
         ),
         title: Text(
           appText,
-          style: TextStyle(color: AppColors.kWhiteColor, fontSize: AppSizes.kHeadingSize),
+          style: TextStyle(
+              color: AppColors.kWhiteColor, fontSize: AppSizes.kHeadingSize),
         ),
         centerTitle: true,
         backgroundColor: AppColors.kSecondaryColor,
         actions: [
           Stack(children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_bag_outlined)),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.shopping_bag_outlined)),
             const Positioned(
                 width: 20,
                 height: 20,
                 right: 25,
                 top: 5,
                 child: Badge(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Colors.red,
                 )),
-            const Positioned(
-                right: 30,
+            Positioned(
+                right: 29,
                 top: 5,
                 child: Text(
-                  "0",
-                  style: TextStyle(color: Colors.white),
+                  cartItem.toString(),
+                  style: const TextStyle(color: Colors.white),
                 ))
           ])
         ]);
